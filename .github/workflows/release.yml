@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+      - "v*.*.*.*"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        if: runner.os == 'Windows'
+        run: g++ ./src/main.cpp
+
+      - name: Setup
+        if: runner.os == 'Linux'
+        run: sudo apt install g++
+
+      - name: Build
+        if: runner.os == 'Linux'
+        run: g++ ./src/main.cpp
+
+      - name: Setup
+        if: runner.os == 'macOS'
+        run: sudo apt install g++
+
+      - name: Build
+        if: runner.os == 'macOS'
+        run: g++ ./src/main.cpp
