@@ -30,10 +30,6 @@ jobs:
         if: runner.os == 'Linux'
         run: g++ ./src/main.cpp
 
-      - name: Setup
-        if: runner.os == 'macOS'
-        run: sudo apt install g++
-
       - name: Build
         if: runner.os == 'macOS'
         run: g++ ./src/main.cpp
